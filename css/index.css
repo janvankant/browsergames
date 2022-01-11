@@ -107,15 +107,16 @@ body {
 
 .text {
     display: flex;
-    width: 600px;
+    justify-content: space-around;
+    width: 40%;
     margin: 50px auto 0;
     font-family: 'Permanent Marker';
     color: black;
     font-size: 40px;
 }
 
-.choose {
-
+.choose,.your, .game {
+    margin: 0 10px;
 }
 
 .your {
