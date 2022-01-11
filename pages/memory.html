@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/memory.css">
+    <link rel="shortcut icon" href="#">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+        <div id="mainMenuContainer" class="main-menu-container">
+            <div class="main-menu-title">
+                <h1>Play memory</h1>
+                <p>How good is your memory?</p>
+            </div>
+            <div class="main-menu-list">
+                <a href="" class="main-menu-list-item" id="menuStartBtn">Start game</a>
+                <a href="" class="main-menu-list-item" id="menuOptionBtn">Options</a>
+                <a href="" class="main-menu-list-item" id="menuScoreBtn">Highscores</a>
+                <a href="" class="main-menu-list-item" id="menuQuitBtn">Quit</a>
+            </div>
+        </div>
+
+        <div id="optionsMenuContainer" class="options-menu-container">
+            <h1>Options</h1>
+            <div class="options-menu-list">
+                <div class="volume options-item">
+                    <label for="volumeSlider">Audio volume</label>
+                    <input type="range" id="volumeSlider" value="100" oninput="changeVolume()" />
+                </div>
+
+                <div class="difficulty options-item">
+                    <p>Difficulty</p>
+                    <div class="difficulty-options">
+                        <button onclick="changeDifficulty(this)" class="difBtn current">Easy</button>
+                        <button onclick="changeDifficulty(this)" class="difBtn">Normal</button>
+                        <button onclick="changeDifficulty(this)" class="difBtn">Hardest</button>
+                    </div>
+                </div>
+
+                <div class="theme options-item">
+                    <p>Themes</p>
+                    <div class="btn-container">
+                        <button onclick="changeTheme(this)" class="themeBtn current">Animals</button>
+                        <button onclick="changeTheme(this)" class="themeBtn">Fruits</button>
+                        <button onclick="changeTheme(this)" class="themeBtn">People</button>
+                    </div>
+                </div>
+
+                <div class="card-color-dropown options-item">
+                    <p>Card backgrounds</p>
+                    <div class="drop-down">
+                        <button id="selectFgColBtn" value=""></button>
+                        <ul id="selectFgCol">
+                            <li thumbnail="../img/memory/cardFg/thumbnail-1.jpg">Wiggle</li>
+                            <li thumbnail="../img/memory/cardFg/thumbnail-2.jpg">Diamond</li>
+                            <li thumbnail="../img/memory/cardFg/thumbnail-3.jpg">Triangle</li>
+                            <li thumbnail="../img/memory/cardFg/thumbnail-4.jpg">Wavy</li>
+                            <li thumbnail="../img/memory/cardFg/thumbnail-5.jpg">Round</li>
+                            <li thumbnail="../img/memory/cardFg/thumbnail-6.jpg">Cross</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <a href="" class="main-menu-list-item" id="backBtn">Back</a>
+        </div>
+
+
+        <div id="gameContainer" class="game-container">
+            <div class="game-area">
+                <div class="card" id="newCard0" onclick="rotateCardShow(this)" cardOpen="false">
+                    <div class="card-inner">
+                        <img src="../img/memory/cardFg/triangle.jpg" alt="card-front" class="card-front">
+                        <img src="" alt="" class="card-back">
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="game-controls">
+                <p class="control-item">Number of moves:</p>
+                <div class="move-count control-item">
+                    <p id="moveCount">0</p>
+                </div>
+                <div class="control-item">
+                    <button id="gameOptionBtn">Options</button>
+                </div>
+            </div>
+
+            <div id="ingameOptions" class="options-menu-container">
+                <h1>Options</h1>
+                <div class="options-menu-list">
+                    <div class="volume options-item">
+                        <label for="volumeSlider">Audio volume</label>
+                        <input type="range" id="volumeSlider2" value="100" oninput="changeVolumeIngame()" />
+                    </div>
+
+                    <div class="difficulty options-item">
+                        <p>Difficulty</p>
+                        <div class="difficulty-options">
+                            <button onclick="changeDifficulty(this)" class="difBtn current">Easy</button>
+                            <button onclick="changeDifficulty(this)" class="difBtn">Normal</button>
+                            <button onclick="changeDifficulty(this)" class="difBtn">Hardest</button>
+                        </div>
+                    </div>
+
+                    <div class="theme options-item">
+                        <p>Themes</p>
+                        <div class="btn-container">
+                            <button onclick="changeTheme(this)" class="themeBtn current">Animals</button>
+                            <button onclick="changeTheme(this)" class="themeBtn">Fruits</button>
+                            <button onclick="changeTheme(this)" class="themeBtn">People</button>
+                        </div>
+                    </div>
+
+                    <div class="card-color-dropown options-item">
+                        <p>Card backgrounds</p>
+                        <div class="drop-down">
+                            <button id="selectFgColBtnINGAME" value=""></button>
+                            <ul id="selectFgColINGAME">
+                                <li thumbnail="../img/memory/cardFg/thumbnail-1.jpg">Wiggle</li>
+                                <li thumbnail="../img/memory/cardFg/thumbnail-2.jpg">Diamond</li>
+                                <li thumbnail="../img/memory/cardFg/thumbnail-3.jpg">Triangle</li>
+                                <li thumbnail="../img/memory/cardFg/thumbnail-4.jpg">Wavy</li>
+                                <li thumbnail="../img/memory/cardFg/thumbnail-5.jpg">Round</li>
+                                <li thumbnail="../img/memory/cardFg/thumbnail-6.jpg">Cross</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ingame-btn-container">
+                    <a href="" class="main-menu-list-item" id="restartBtn">Restart</a>
+                    <a href="" class="main-menu-list-item" id="backToGameBtn">Continue</a>
+                    <a href="" class="main-menu-list-item" id="backToMenuBtn">Quit</a>
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+        <div id="winGameContainer" class="win-game-container">
+
+        </div>
+
+    </div>
+
+    <audio id="audioFlipCard" src=""></audio>
+    <!-- <audio id="audioFlipCardBack" src="../audio/card-flip-back.wav"></audio> -->
+
+    <script src="../script/memory.js" type="module"></script>
+    <!-- <script src="../script/modules/memModule.js" ></script> -->
+</body>
+
+</html>

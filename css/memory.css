@@ -1,0 +1,302 @@
+@import url('https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@400;500;600;700&display=swap');
+
+:root {
+    --fluid-text-size: clamp(1.13rem, 1.03rem + 0.50vw, 1.63rem);
+  }
+
+html{
+    font-size: var(--fluid-text-size);
+}
+
+#root{
+    background-image: url(../img/bg-memory.jpg);
+    min-height: 100vh;
+    background-position: top center;
+    background-attachment: fixed;
+    background-size: cover;    
+    background-repeat: no-repeat;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+}
+
+/* ======>> MAIN MENU <<====== */
+
+.main-menu-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-menu-title{
+    padding: 1em 0;
+}
+
+.main-menu-title h1{
+    font-size: 4em;
+    font-weight: 800;    
+}
+
+.main-menu-title p{
+    font-style: italic;
+}
+
+.main-menu-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1em 0;
+}
+
+.main-menu-list-item{
+    font-size: 1em;
+    font-weight: 500;
+    padding: 1em 2.5em;
+    margin: .6rem 0;
+    border: .2em ;
+    border-radius: 5em;
+    text-align: center;
+    color: white;
+    background-color: darkcyan;
+    text-decoration: none;
+    transition: all 250ms ease-in-out;
+}
+
+.main-menu-list-item:hover{
+    color: rgb(33, 62, 63);
+    background-color: rgb(66, 175, 175);
+    transform: scale(1.1);
+}
+
+/* ======>> OPTIONS MENU <<====== */
+.options-menu-container {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+}
+
+.options-menu-container h1 {
+    font-size: 4em;
+    padding: .25em;
+}
+
+.options-menu-list {
+    color: white;
+    background-color: darkcyan; 
+    border-radius: 1.5em;
+    margin: 0 .8em;
+    padding: 1em max(3vw, 1em);
+}
+
+.options-item {
+    margin: 1rem 0;
+    display: flex;
+    flex-direction: column;
+}
+
+#volumeSlider, #volumeSlider2 {
+    accent-color: rgb(216, 144, 186);
+    width: 50%;
+    /* margin: 1em 0; */
+}
+
+.difBtn, .themeBtn, #selectFgColBtn, #selectFgColBtnINGAME {
+    padding: .75em 0;
+    margin: .5rem min(1vw, .5rem);
+    width: min(22vw, 5em);
+    color: white;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-size: 1em;
+    font-weight: 400;
+    background-color: rgb(216, 144, 186);
+    border: none;
+    border-radius: 5em;
+    transition: background-color 200ms ease-in-out;
+
+    cursor: pointer;
+    list-style: none;
+}
+
+.difBtn:hover, .themeBtn:hover, #selectFgColBtn:hover, #selectFgColBtnINGAME:hover {
+    background-color: rgb(233, 175, 209);
+    cursor: pointer;
+}
+
+.difBtn.current ,.themeBtn.current {
+    color: rgb(231, 231, 231);
+    background-color: rgb(182, 182, 182);
+    cursor: initial;
+}
+
+.drop-down {
+    display: flex;
+    width: fit-content;
+}
+
+#selectFgColBtn, #selectFgColBtnINGAME {
+    max-height: 2.7em;
+}
+
+#selectFgColBtn img, #selectFgColBtnINGAME img {
+    width: 1em;
+    height: 1em;
+}
+
+#selectFgCol, #selectFgColINGAME {
+    display: none;
+    padding: 1em;
+    color: black;
+    background-color: white;
+    border: .3em solid rgb(233, 175, 209);
+    border-radius: 2em;
+}
+
+#selectFgCol li, #selectFgColINGAME li {
+    display: flex;
+    align-items: center;
+    padding: .2rem .5rem;
+    border-radius: 1rem;
+    list-style: none;
+    opacity: .6;
+    cursor: pointer;
+}
+
+#selectFgCol li:hover, #selectFgColINGAME li:hover {
+    background-color: whitesmoke;
+    opacity: 1;
+}
+
+
+#selectFgCol li img, #selectFgColINGAME li img {
+    width: 1.3em;
+    height: 1.3em;
+    margin-right: .3rem;
+}
+
+
+
+
+/* ======>> GAME GAME GAME <<====== */
+.game-container {
+    display: none;
+    width: 100%;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-area {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: .3rem;
+    min-width: 600px;
+    width: 90vh;
+}
+
+.card {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+    perspective: 1000px;
+    transition: opacity 200ms ease-in-out;
+}
+
+.card:hover {
+    cursor: pointer;
+    opacity: .8;
+}
+
+.card-inner {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.card-rotate {
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    /* transform: rotateX(180deg); */
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+}
+
+.card-back {
+    transform: rotateX(180deg);
+}
+
+.game-controls {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 50px;
+    height: 3vh;
+    width: 60vh;
+    color: white;
+
+    background-color: rgb(66, 175, 175);
+    padding: 1em 5em;
+    border-radius: 5em;
+}
+
+.control-item {
+    width: 30%;
+    text-align: center;
+}
+
+.move-count {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 20px;
+    width: 2em;
+    height: 2em;
+    font-weight: 800;
+    font-size: 2em;
+    background-color: rgb(66, 175, 175);
+    border:6px solid rgb(103, 212, 212);
+    border-radius: 50%;
+}
+
+.control-item button {
+    padding: .5em 0;
+    width: 5em;
+    color: white;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-size: 1em;
+    font-weight: 400;
+    background-color: rgb(216, 144, 186);
+    border: none;
+    border-radius: 5em;
+    transition: background-color 200ms ease-in-out;
+    cursor: pointer;
+}
+
+.control-item button:hover {
+    background-color: rgb(233, 175, 209);
+    cursor: pointer;
+}
+
+
+/* ingame options */
+#ingameOptions {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.ingame-btn-container {
+    margin: 2rem 0;
+}
