@@ -94,13 +94,27 @@ window.changeDifficulty = function changeDifficulty(btn) {
 
     if (btn.innerText == "Easy") {
         numberOfCards = 12;
-        gameArea.style.gridTemplateColumns = "repeat(4, 1fr)"
+        if (document.documentElement.clientWidth < 750) {
+            gameArea.style.gridTemplateColumns = "repeat(3, 1fr)"
+        } else {
+            gameArea.style.gridTemplateColumns = "repeat(4, 1fr)";
+        }
+
     } else if (btn.innerText == "Normal") {
         numberOfCards = 16;         //FIX WEIRD DISTRIBUTION
-        gameArea.style.gridTemplateColumns = "repeat(5, 1fr)"
+        if (document.documentElement.clientWidth < 750) {
+            gameArea.style.gridTemplateColumns = "repeat(4, 1fr)"
+        } else {
+            gameArea.style.gridTemplateColumns = "repeat(5, 1fr)";
+        }
     } else {
         numberOfCards = 20;
-        gameArea.style.gridTemplateColumns = "repeat(5, 1fr)";
+        if (document.documentElement.clientWidth < 750) {
+            gameArea.style.gridTemplateColumns = "repeat(4, 1fr)"
+        } else {
+            gameArea.style.gridTemplateColumns = "repeat(5, 1fr)";
+        }
+
     }
 
 }
@@ -274,6 +288,8 @@ function restartGame(e) {
     } else if (fruitNameArr.includes(currentTheme[0])) {
         currentTheme = [...fruitNameArr];
     }
+
+    // if (numberOfCards == )
 
     card.children[0].classList.remove("card-rotate");
     card.children[0].style.transform = "rotateX(0deg)";

@@ -31,7 +31,9 @@ function playGame(word) {
 
     var textField = document.querySelector(".solution");
     var hangman = document.querySelector(".img");
-    var btnCont = document.querySelector(".btn-container");
+    var btnCont1 = document.querySelector(".row1");
+    var btnCont2 = document.querySelector(".row2");
+    var btnCont3 = document.querySelector(".row3");
     var tryCount = document.getElementById("tryCount");
     var bgGameOver = document.querySelector(".bg-game-over");
     var fgGameOver = document.querySelector(".fg-game-over");
@@ -52,7 +54,7 @@ function playGame(word) {
     continueBtn.style.display = "none";
 
     menuBtn.addEventListener("click", pauseGame);
-    icon.addEventListener("click", addNameScore);
+    icon.addEventListener("click", showScoreBoard);
     startOverBtn.addEventListener("click", () => location.reload(true));
     mainMenuBtn.addEventListener("click", () => location.href = "../index.html");
     continueBtn.addEventListener("click", function () {
@@ -63,6 +65,8 @@ function playGame(word) {
         e.preventDefault();
         addNameScore();
     });
+
+    // bgGameOver.addEventListener("click", () => bgGameOver.style.display = 'none');
 
     //create text field
     textField.innerText = secret;
@@ -100,17 +104,20 @@ function playGame(word) {
     const gamePausedP = 'Would you like to keep playing or go back to the menu?';
 
     //create buttons + add interaction
-    const char = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+    const char = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm'];
     var x = 0;
     var y = 8;
 
     for (let i = 0; i < char.length; i++) {
         var btn = document.createElement("button");
         btn.innerText = char[i];
-        btnCont.append(btn);
+        // btnCont.append(btn);
         btn.classList.add("btn");
         btn.setAttribute("id", char[i]);
         btn.addEventListener("click", btnClicked);
+
+        appendBtn(i, btn);
+
 
         function btnClicked() {
             if (solution.includes(char[i])) {
@@ -159,38 +166,53 @@ function playGame(word) {
         }
     }
 
+    function appendBtn(index, button) {
+        if (index < 10) {
+            btnCont1.append(button);
+        } else if (index < 19) {
+            btnCont2.append(button);
+        } else if (index < 26) {
+            btnCont3.append(button);
+        }
+    }
+
     function gameOver() {
-        bgGameOver.style.display = "grid";
+        bgGameOver.style.display = "flex";
         h1.innerText = gameOverTextH1;
         p.innerText = gameOverTextP;
         p.innerText += gameOverTextP2;
-
+        fgGameOver.classList.add("visible");
     }
 
     function gameWon() {
-        bgGameOver.style.display = "grid";
+        bgGameOver.style.display = "flex";
         score = score + 20;
         console.log("score", score);
         h1.innerText = gameWonTextH1;
         p.innerText = gameWonTextP;
         form.style.display = "block";
         label.innerText = `Your score: ${score}`;
+        fgGameOver.classList.add("visible");
     }
 
     function pauseGame() {
-        bgGameOver.style.display = "grid";
+        bgGameOver.style.display = "flex";
         h1.innerText = gamePausedH1;
         p.innerText = gamePausedP;
         continueBtn.style.display = "inline";
+        fgGameOver.classList.add("visible");
     }
+
+    // function openScoreBoard() {
+    //     scoreBoard.style.display = "block";
+    // }
 
     function addNameScore(name) {
         form.style.display = "none";
-        scoreBoard.style.display = "block";
 
         var name = input.value;
         var newName = new ScoreName(score, name);
-        console.log(newName);
+        // console.log(newName);
 
         scoreArr = JSON.parse(localStorage.getItem("score"));
         if (scoreArr == null) {
@@ -200,30 +222,52 @@ function playGame(word) {
             scoreArr.push(newName);
             scoreArr.sort(function (a, b) { return (b.score - a.score) });
         }
-        console.log(scoreArr);
         localStorage.setItem("score", JSON.stringify(scoreArr));
 
-        var scoreList = document.createElement("ol");
-        scoreList.setAttribute("id", "scoreList");
-        scoreBoard.append(scoreList);
+        showScoreBoard();
+    }
 
-        for (let i = 0; i < scoreArr.length; i++) {
-            var listItem = document.createElement("li");
-            listItem.innerText = `${scoreArr[i].name} | ${scoreArr[i].score}`;
-            scoreList.append(listItem);
-            if (i == 9) {
-                break;
+    function showScoreBoard() {
+        scoreArr = JSON.parse(localStorage.getItem("score"));
+        scoreBoard.style.display = "block";
+
+        if (scoreArr != null) {
+            if (scoreArr.length == 1) {
+                document.getElementById("scoreListPH").remove();
+            }
+
+            var nameList = document.createElement("ol")
+            var scoreList = document.createElement("ul");
+            nameList.classList.add("name-list");
+            scoreList.classList.add("score-list");
+            document.querySelector(".score-lists").append(nameList);
+            document.querySelector(".score-lists").append(scoreList);
+
+            for (let i = 0; i < scoreArr.length; i++) {
+                var nameItem = document.createElement("li");
+                (scoreArr[i].name == "") ? nameItem.innerText = "Anonymous" : nameItem.innerText = scoreArr[i].name;
+                nameList.append(nameItem);
+
+                var scoreItem = document.createElement("li");
+                scoreItem.innerText = scoreArr[i].score;
+                scoreList.append(scoreItem);
+
+                if (i == 9) {
+                    break;
+                }
             }
         }
 
+
         closeBtn.addEventListener("click", function (e) {
             e.preventDefault();
-            scoreList.remove();
-            fgGameOver.style.display = "block";
+            if (scoreArr != null) {
+                nameList.remove();
+                scoreList.remove();
+            }
+
             scoreBoard.style.display = "none";
-
         });
-
     }
 
 }

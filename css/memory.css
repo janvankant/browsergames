@@ -2,21 +2,20 @@
 
 :root {
     --fluid-text-size: clamp(1.13rem, 1.03rem + 0.50vw, 1.63rem);
-  }
-
-html{
-    font-size: var(--fluid-text-size);
 }
 
-#root{
+body{ 
+    font-size: var(--fluid-text-size);
+    font-family: 'Yanone Kaffeesatz', sans-serif;
     background-image: url(../img/bg-memory.jpg);
-    min-height: 100vh;
-    background-position: top center;
+    background-position: center center;
+    background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;    
-    background-repeat: no-repeat;
-    font-family: 'Yanone Kaffeesatz', sans-serif;
+    min-height: 100vh;
 }
+
+
 
 /* ======>> MAIN MENU <<====== */
 
@@ -178,28 +177,30 @@ html{
 /* ======>> GAME GAME GAME <<====== */
 .game-container {
     display: none;
-    width: 100%;
-    height: 100vh;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
+    height: 100vh;
+}
+
+.game-area-wrapper{
+    width: min(600px, 60%);   
 }
 
 .game-area {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: .3rem;
-    min-width: 600px;
-    width: 90vh;
 }
 
 .card {
     overflow: hidden;
     position: relative;
-    width: 100%;
+    /* aspect-ratio: 1; */
     padding-top: 100%;
     perspective: 1000px;
     transition: opacity 200ms ease-in-out;
+    min-width: 0;
 }
 
 .card:hover {
@@ -209,16 +210,12 @@ html{
 
 .card-inner {
     position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    inset: 0 0 0 0;
 }
 
 .card-rotate {
     transition: transform 0.6s;
     transform-style: preserve-3d;
-    /* transform: rotateX(180deg); */
 }
 
 .card-front, .card-back {
@@ -290,13 +287,45 @@ html{
 #ingameOptions {
     display: none;
     position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    inset: 0 0 0 0;
     background-color: rgba(255, 255, 255, 0.7);
 }
 
 .ingame-btn-container {
     margin: 2rem 0;
+}
+
+
+@media only screen and (max-width: 750px) {
+    .game-container {
+        justify-content: center;
+        max-height: 100vh;
+    }
+
+    .game-area-wrapper {
+        /* margin: 0 auto; */
+        width: max(300px, 60%);
+    }
+    
+    .game-area {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .game-controls {
+        width: 90%;
+    }
+
+    #restartBtn, #backToGameBtn, #backToMenuBtn {
+        margin: 0;
+    }
+
+    .ingame-btn-container { 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: .2rem;
+        gap: .3rem;
+    }
+
+    
 }
