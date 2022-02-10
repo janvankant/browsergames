@@ -1,13 +1,9 @@
 // --->> to do: - aantal correct hardcoden
-//              - 
-
-
-
+//              - mobile versie buttons toevoegen! 
 
 var root = document.getElementById("root");
-var gameContainer = document.querySelector(".game-container")
-var gameArea = document.createElement("div");
-var textArea = document.createElement("div");
+var gameArea = document.querySelector(".game-area")
+var gameWrapper = document.createElement("div");
 var game = document.createElement("div");
 var bgGameOver = document.createElement("div");
 var fgGameOver = document.createElement("div");
@@ -15,15 +11,14 @@ var restartBtn = document.createElement("button");
 var continueBtn = document.createElement("button");
 var backHomeBtn = document.createElement("button");
 var menuBtn = document.getElementById("menu-btn");
+var inputBtnArr = document.querySelectorAll(".input-btn");
 
-gameContainer.append(gameArea);
-gameContainer.append(textArea);
-gameArea.append(game);
+gameArea.append(gameWrapper);
+gameWrapper.append(game);
+
 root.append(bgGameOver);
 bgGameOver.append(fgGameOver);
 
-gameArea.classList.add("game-area");
-textArea.classList.add("text-area");
 game.classList.add("game");
 bgGameOver.classList.add("bg-game-over");
 fgGameOver.classList.add("fg-game-over");
@@ -58,59 +53,72 @@ continueBtn.innerHTML = "Continue";
 backHomeBtn.innerHTML = "Back to menu";
 
 // <--- PLAY GAME ---> //
-window.addEventListener("keydown", toScreen);
+window.addEventListener("keydown", function (keyDown) {
+    var input = keyDown.key;
+    toScreen(input);
+});
 menuBtn.addEventListener("click", pauseGame);
 
 
-function toScreen(e) {
-    var input = e.key;
+inputBtnArr.forEach(btn => {
+    let el = btn.value;
+    btn.addEventListener("click", function (e) {
+        e.preventDefault();
+        toScreen(el);
+    });
+});
+
+
+function toScreen(input) {
     if (input == "g") {
         var green = document.createElement("div");
         green.classList.add("green");
-        green.innerHTML = "G";
         game.append(green);
+        // var inputObj = { "letter": input, "color": green };
     } else if (input == "r") {
         var red = document.createElement("div");
         red.classList.add("red");
-        red.innerHTML = "R";
         game.append(red);
+        // var inputObj = { "letter": input, "color": red };
     } else if (input == "b") {
         var blue = document.createElement("div");
         blue.classList.add("blue");
-        blue.innerHTML = "B";
         game.append(blue);
+        // var inputObj = { "letter": input, "color": blue };
     } else if (input == "y") {
         var yellow = document.createElement("div");
         yellow.classList.add("yellow");
-        yellow.innerHTML = "Y";
         game.append(yellow);
+        // var inputObj = { "letter": input, "color": yellow };
     } else if (input == "p") {
         var purple = document.createElement("div");
         purple.classList.add("purple");
-        purple.innerHTML = "P";
         game.append(purple);
+        // var inputObj = { "letter": input, "color": purple };
     } else if (input == "Backspace") {
         game.lastChild.remove();
     }
 
     if (input == "g" || input == "r" || input == "b" || input == "p" || input == "y") {
-        arrInput.push(input)
+        arrInput.push(input);
     } else if (input == "Backspace") {
         arrInput.pop();
     }
 
-    // array = 5
+
     if (arrInput.length == 5) {
         for (var i = 0; i < arrInput.length; ++i) {
             if (arrInput[i] === solution[i]) {
+                console.log(arrInput[i]);
                 correct++;
             };
         }
 
         var text = document.createElement("p");
         text.classList.add("text");
-        textArea.append(text);
-        text.innerHTML += '- You got ' + correct + ' right';
+        gameWrapper.append(text);
+        text.innerText += correct;
+        (correct == 0) ? text.style.color = "red" : text.style.color = `rgb(0,${250 / ((correct + 1) / 2)},0)`;
 
         if (correct == 5) {
             inGame = false;
@@ -121,8 +129,10 @@ function toScreen(e) {
         arrInput = [];
         correct = 0;
         attempt++;
+        gameWrapper = document.createElement("div");
         game = document.createElement("div");
-        gameArea.append(game);
+        gameArea.append(gameWrapper);
+        gameWrapper.append(game);
         game.classList.add("game");
 
         if (attempt > 6) {

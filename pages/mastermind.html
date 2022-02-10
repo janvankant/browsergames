@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../css/mastermind.css">
     <title>Play Mastermind!</title>
 </head>
@@ -14,15 +16,30 @@
     <div id="root">
         <div class="header">
             <div class="title-bar">
-                <h1>Play Mastermind</h1>
-                <button id="menu-btn">Menu</button>
+                <h1>Mastermind</h1>
+                <!-- <button id="menu-btn">Menu</button> -->
+                <i class="fas fa-bars" id="menu-btn"></i>
             </div>
-            <p>Choose each colour once to crack the code -> <span style="background-color: red;">R</span> <span
-                    style="background-color: yellow;">Y</span> <span style="background-color: blue;">B</span> <span
-                    style="background-color: green;">G</span> <span style="background-color: purple;">P</span>
-            </p>
+            <div class="description-wrapper">
+                <p class="description">Choose each colour once to crack the code</p>
+                <!-- <p class="description">Choose each colour once to crack the code -><span
+                        style="background-color: red;">R</span> <span style="background-color: yellow;">Y</span> <span
+                        style="background-color: blue;">B</span> <span style="background-color: green;">G</span> <span
+                        style="background-color: purple;">P</span>
+                </p> -->
+                <div class="btn-container">
+                    <button class="input-btn red" value="r"></button>
+                    <button class="input-btn yellow" value="y"></button>
+                    <button class="input-btn blue" value="b"></button>
+                    <button class="input-btn green" value="g"></button>
+                    <button class="input-btn purple" value="p"></button>
+                </div>
+            </div>
+
         </div>
-        <div class="game-container"></div>
+        <div class="game-area">
+            <div class="text-area"><i class="fas fa-check"></i></div>
+        </div>
     </div>
 
 
