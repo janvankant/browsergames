@@ -92,7 +92,7 @@
 
 
 .btn {
-    width:  clamp(27px, 5vw, 52px);
+    width:  clamp(25px, 5vw, 52px);
     height: clamp(35px, 5vw, 45px);
     margin: min(7px, .5vw);
 
