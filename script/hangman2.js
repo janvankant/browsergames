@@ -232,7 +232,7 @@ function playGame(word) {
         scoreBoard.style.display = "block";
 
         if (scoreArr != null) {
-            if (scoreArr.length == 1) {
+            if (scoreArr.length >= 1) {
                 document.getElementById("scoreListPH").remove();
             }
 
