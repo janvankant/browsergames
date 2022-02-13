@@ -1,0 +1,20 @@
+To do browsergames:
+
+Memory:
+	- Highscores
+
+Hangman:
+	- Different randon word generator (more common words)
+	- Different scoring system?
+	- Animate menu
+
+Mastermind: 
+	- DONE | Add backspace button 
+	- DONE | Menu btn doesn't work
+	- DONE | Reshape & redesign menu overlay
+	- DONE | game won display solution
+	- DONE | Redesign header to look more appealing
+	- Redesign buttons to look more like buttons
+
+no. 4: ???
+	- Choose different game than rps?

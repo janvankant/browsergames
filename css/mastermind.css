@@ -4,8 +4,26 @@
     padding: 0;
 }
 
+:root {
+    --prim-bg: #223843;
+    --sec-bg: rgb(27, 27, 27);
+    --tin-bg: #DBD3D8;
+    --prim-acc: #D77A61;
+    --sec-acc: #D8B4A0;
+}
+
+
+body {
+    /* background-color: black; */
+    background: rgb(40,63,74);
+    background: linear-gradient(0deg, rgba(40,63,74,1) 0%, rgba(3,20,29,1) 100%);
+    min-height: 100vh;
+    /* background: radial-gradient(circle, rgba(40,63,74,1) 0%, rgba(3,20,29,1) 100%); */
+}
+
 .header {
-    background-color: grey;
+    background-color: var(--sec-bg);
+    color: var(--tin-bg);
     width: 100%;
 }
 
@@ -17,6 +35,8 @@
     width: min(100vw, 600px);
     margin: 0 auto;
     padding-block: 1rem;
+    border-bottom: var(--tin-bg) 1px solid;
+
 }
 
 .title-bar h1 {
@@ -31,8 +51,8 @@
 
 .fa-bars:hover{
     cursor: pointer;
-    color: black;
-    transform: scale(1.15);
+    color: white;
+    transform: scale(1.04);
 }
 
 .fa-bars:active {
@@ -43,11 +63,19 @@
     padding-block: 1rem ;
     text-align: center;
     font-size: 1.3rem;    
-    background-color: lightgray;
+    
+    background-color:  var(--sec-bg);
 }
 
 .description {
     padding-block-end: .5rem;
+}
+
+.btn-wrapper {
+    width: min(100vw, 600px);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
 }
 
 .btn-container {
@@ -59,7 +87,10 @@
 
 .input-btn {
     border: none;
-    box-shadow: -5px -5px 5px rgba(0, 0, 0, 0.25) inset;
+    position: relative;
+    z-index: 1;
+    box-shadow: inset 0 2px 2px rgba(255,255,255,0.5), 1px 2px 1px rgba(0, 0, 0, 0.5);
+    border-bottom: solid 2px rgba(0,0,0,.4);
 }
 
 .input-btn:hover {
@@ -72,6 +103,21 @@
     opacity: .5;
 }
 
+.fa-undo-alt{
+    margin-inline-end: .5rem;
+    font-size: 1.6rem;
+    filter: drop-shadow(3px 3px 4px rgba(0, 0, 0, 0.185));
+    padding: .5rem;
+    transition: color .3s ease,
+                transform .3s ease;
+}
+
+.fa-undo-alt:hover{
+    cursor: pointer;
+    color: white;
+    transform: scale(1.04);
+}
+
 .game-area {
     width: min(100vw, 600px);
     min-width:calc(250px + 2rem);
@@ -79,7 +125,10 @@
     margin: 0 auto;
     padding: 1rem;    
     color: white;
-    background-color: black;
+}
+
+.header, .game-area {
+    transition:  filter 0.3s ease;
 }
 
 .game-area > div {
@@ -152,61 +201,79 @@
         padding-inline: min(.5rem, 2vw);
         font-size: 1rem;
     }
-
-    body {
-        background-color: black;
-    }
 }
+
 
 
 /* --- Game end --- */
+.blur {
+    filter: blur(50px);
+}
+
 .bg-game-over {
-    position: absolute;
-    display: none;
+    position: fixed;
+    display: flex;
+    justify-content: center;
     z-index: 1;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.794);
-    transition: display 1s;
+    inset: 0 0 0 0;
+    transform: translateY(100%);
+    transition: transform .5s;
 }
 
 .fg-game-over {
-    min-width: 400px;
-    width: 40%;
-    height: 300px;
-    margin: 200px auto 0;
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: min(100vw, 600px);
+    margin: clamp(10px, 10vh, 150px) auto;
+    padding: 0 1rem;
+    min-height: 40vh;
     text-align: center;
     color: white;
-    background-color: black;
-    border: 3px solid white;
+    background-color: var(--prim-bg);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.192);
 }
 
 .fg-game-over h1 {
-    font-size: 40px;
-    margin: 30px 0 50px; 
+    font-size: 2rem; 
+    border-bottom: var(--tin-bg) solid 1px;
+}
+
+.fg-game-over > h1, .fg-game-over > p {
+    order: -1;
+    padding: 1rem;
+    width: min(90%, 300px);
+}
+
+.fg-game-over > #solution-wrapper > span {
+    display: inline-block;
+    margin: 0 .2rem;
+}
+
+#solution-wrapper {
+    width: min(90%, 300px);
+}
+
+.menu-btn-container{
+    display: flex;
+    flex-direction: column;
+    align-content : center;
+    gap: 1rem;
 }
 
 .restart-btn {
-    margin: 80px 10px 0;
-    padding: 10px;
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
-    background-color: rgb(0, 77, 107);
-    border: 2px solid white;
-    transition: background-color 0.5s;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    background-color: white;
+    border: none;
+    border-radius: 5rem;
+    transition: color 0.3s,
+                background-color 0.3s;
 }
 
 .restart-btn:hover {
     cursor: pointer;
-    background-color: rgb(44, 109, 184);
-}
-
-.restart-btn:active {
-    background-color: white;
-    color: rgb(44, 109, 184);
-    border: 2px solid rgb(44, 109, 184);
+    color: white;
+    background-color: var(--prim-acc);
 }

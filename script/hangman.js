@@ -24,86 +24,56 @@ function playGame(word) {
     console.log(solution);
 
     var secret = "";
-
     for (let i = 0; i < solution.length; i++) {
         secret = secret + "_ ";
     }
 
-    //create divs
-    var root = document.getElementById("root");
-    var gameCont = document.createElement("div");
-    var gameCenter = document.createElement("div");
-    var btnCont = document.createElement("div");
-    var bgGameOver = document.createElement("div");
-    var fgGameOver = document.createElement("div");
-    var h1Container = document.createElement("div");
-    var restartBtn = document.createElement("button");
-    var continueBtn = document.createElement("button");
-    var backHomeBtn = document.createElement("button");
-    var menuBtn = document.createElement("button");
-    var h1 = document.createElement("h1");
-    var icon = document.createElement("img");
-    var p = document.createElement("p");
-    var form = document.createElement("form");
-    var label = document.createElement("label");
-    var inputContainer = document.createElement("div");
-    var input = document.createElement("input");
-    var nameBtn = document.createElement("button");
-    //Create scoreboard
-    var scoreBoard = document.createElement("div");
-    scoreBoard.classList.add("fg-game-over");
-    scoreBoard.innerText = `Top 5: `;
-    var scoreList = document.createElement("ol");
-    var closeBtn = document.createElement("button");
-    bgGameOver.append(scoreBoard);
-    scoreBoard.style.display = "none";
 
-    gameCont.classList.add("game-container");
-    gameCenter.classList.add("game-center");
-    btnCont.classList.add("btn-container");
-    bgGameOver.classList.add("bg-game-over");
-    fgGameOver.classList.add("fg-game-over");
-    h1Container.classList.add("h1-container");
-    h1.classList.add("h1");
-    inputContainer.classList.add("input-container");
-    restartBtn.classList.add("menu-btn");
-    continueBtn.classList.add("menu-btn");
-    backHomeBtn.classList.add("menu-btn");
-    menuBtn.classList.add("menu-btn");
-    icon.classList.add("icon");
-    icon.setAttribute("src", "../img/icon.png");
-    input.setAttribute("type", "text");
-    input.setAttribute("id", "input");
-    input.setAttribute("placeholder", "Your name...");
-    label.setAttribute("for", "input");
+    var textField = document.querySelector(".solution");
+    var hangman = document.querySelector(".img");
+    var btnCont1 = document.querySelector(".row1");
+    var btnCont2 = document.querySelector(".row2");
+    var btnCont3 = document.querySelector(".row3");
+    var tryCount = document.getElementById("tryCount");
+    var bgGameOver = document.querySelector(".bg-game-over");
+    var fgGameOver = document.querySelector(".fg-game-over");
+    var icon = document.querySelector(".icon");
+    var h1 = document.querySelector(".h1");
+    var p = document.querySelector(".p");
+    var form = document.getElementById("form");
+    var label = document.getElementById("label");
+    var scoreBoard = document.getElementById("scoreBoard");
+    var closeBtn = document.getElementById("closeBtn");
 
-    root.append(gameCont);
-    gameCont.append(menuBtn);
-    gameCont.append(gameCenter);
-    root.append(btnCont);
-    root.append(bgGameOver);
-    bgGameOver.append(fgGameOver);
-    fgGameOver.append(h1Container);
-    h1Container.append(h1);
-    h1Container.append(icon);
-    fgGameOver.append(p);
-    form.append(label);
-    form.append(inputContainer)
-    inputContainer.append(input);
-    inputContainer.append(nameBtn);
+
+    var menuBtn = document.getElementById("menuBtn");
+    var startOverBtn = document.getElementById("startOverBtn");
+    var continueBtn = document.getElementById("continueBtn");
+    var mainMenuBtn = document.getElementById("mainMenuBtn");
+
+    continueBtn.style.display = "none";
+
+    menuBtn.addEventListener("click", pauseGame);
+    icon.addEventListener("click", showScoreBoard);
+    startOverBtn.addEventListener("click", () => location.reload(true));
+    mainMenuBtn.addEventListener("click", () => location.href = "../index.html");
+    continueBtn.addEventListener("click", function () {
+        continueBtn.style.display = "none";
+        // bgGameOver.style.display = "none";
+        bgGameOver.style.transform = "translateY(100%)";
+    });
+    confirmBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        addNameScore();
+    });
+
+    // bgGameOver.addEventListener("click", () => bgGameOver.style.display = 'none');
 
     //create text field
-    var textField = document.createElement("p");
-    textField.classList.add("solution");
-    gameCenter.append(textField);
     textField.innerText = secret;
 
     //create image
-    var imgCont = document.createElement("div");
-    imgCont.classList.add("img-container");
-    gameCenter.append(imgCont);
-
-    const img0 = "../img/0.png";
+    // const img0 = "../img/0.png";
     const img1 = "../img/1.png";
     const img2 = "../img/2.png";
     const img3 = "../img/3.png";
@@ -115,16 +85,7 @@ function playGame(word) {
 
     imgArr = [img1, img2, img3, img4, img5, img6, img7, img8];
 
-    var hangman = document.createElement("img");
-    hangman.classList.add("img");
-    hangman.setAttribute("src", img0);
-    imgCont.append(hangman);
-
     //tries & score
-    var tryCount = document.createElement("p");
-    gameCenter.append(tryCount);
-    tryCount.innerText = "How many guesses do you need?";
-
     var score = 80;
     var scoreArr = [];
     class ScoreName {
@@ -143,27 +104,21 @@ function playGame(word) {
     const gamePausedH1 = 'Game paused';
     const gamePausedP = 'Would you like to keep playing or go back to the menu?';
 
-    restartBtn.innerText = "Start over";
-    continueBtn.innerText = "Continue";
-    backHomeBtn.innerText = "Back to menu";
-    menuBtn.innerText = "Menu";
-    nameBtn.innerText = "Confirm";
-    closeBtn.innerText = "Close";
-
     //create buttons + add interaction
-    const char = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+    const char = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm'];
     var x = 0;
     var y = 8;
-
-    menuBtn.addEventListener("click", pauseGame);
 
     for (let i = 0; i < char.length; i++) {
         var btn = document.createElement("button");
         btn.innerText = char[i];
-        btnCont.append(btn);
+        // btnCont.append(btn);
         btn.classList.add("btn");
         btn.setAttribute("id", char[i]);
         btn.addEventListener("click", btnClicked);
+
+        appendBtn(i, btn);
+
 
         function btnClicked() {
             if (solution.includes(char[i])) {
@@ -212,56 +167,56 @@ function playGame(word) {
         }
     }
 
+    function appendBtn(index, button) {
+        if (index < 10) {
+            btnCont1.append(button);
+        } else if (index < 19) {
+            btnCont2.append(button);
+        } else if (index < 26) {
+            btnCont3.append(button);
+        }
+    }
+
     function gameOver() {
+        // bgGameOver.style.display = "flex";
+        bgGameOver.style.transform = "translateY(0%)";
         h1.innerText = gameOverTextH1;
         p.innerText = gameOverTextP;
         p.innerText += gameOverTextP2;
-        menu();
+        fgGameOver.classList.add("visible");
     }
 
     function gameWon() {
+        // bgGameOver.style.display = "flex";
+        bgGameOver.style.transform = "translateY(0%)";
         score = score + 20;
         console.log("score", score);
-        // storeScore();
         h1.innerText = gameWonTextH1;
         p.innerText = gameWonTextP;
+        form.style.display = "block";
         label.innerText = `Your score: ${score}`;
-        fgGameOver.append(form);
-        menu();
-        nameBtn.addEventListener("click", function (e) {
-            e.preventDefault();
-            addNameScore();
-        });
+        fgGameOver.classList.add("visible");
     }
 
     function pauseGame() {
+        // bgGameOver.style.display = "flex";
+        bgGameOver.style.transform = "translateY(0%)";
         h1.innerText = gamePausedH1;
         p.innerText = gamePausedP;
-        menu();
-        fgGameOver.append(continueBtn);
-        continueBtn.addEventListener("click", function () {
-            bgGameOver.style.display = "none";
-            restartBtn.remove();
-            continueBtn.remove();
-            backHomeBtn.remove();
-        });
+        continueBtn.style.display = "inline";
+        fgGameOver.classList.add("visible");
     }
 
-    function menu() {
-        bgGameOver.style.display = "block";
-        fgGameOver.append(restartBtn);
-        fgGameOver.append(backHomeBtn);
-        restartBtn.addEventListener("click", () => location.reload(true));
-        backHomeBtn.addEventListener("click", () => location.href = "../index.html");
-        icon.addEventListener("click", addNameScore);
-    }
+    // function openScoreBoard() {
+    //     scoreBoard.style.display = "block";
+    // }
 
     function addNameScore(name) {
-        form.remove();
+        form.style.display = "none";
 
         var name = input.value;
         var newName = new ScoreName(score, name);
-        console.log(newName);
+        // console.log(newName);
 
         scoreArr = JSON.parse(localStorage.getItem("score"));
         if (scoreArr == null) {
@@ -271,48 +226,55 @@ function playGame(word) {
             scoreArr.push(newName);
             scoreArr.sort(function (a, b) { return (b.score - a.score) });
         }
-        console.log(scoreArr);
         localStorage.setItem("score", JSON.stringify(scoreArr));
 
-        for (let i = 0; i < scoreArr.length; i++) {
-            var listItem = document.createElement("li");
-            listItem.innerText = `Score: ${scoreArr[i].score} | Name: ${scoreArr[i].name}`;
-            scoreList.append(listItem);
-            if (i == 9) {
-                break;
+        showScoreBoard();
+    }
+
+    function showScoreBoard() {
+        scoreArr = JSON.parse(localStorage.getItem("score"));
+        // scoreBoard.style.display = "block";
+        scoreBoard.style.transform = "translateY(0%)";
+
+        if (scoreArr != null) {
+            if (scoreArr.length >= 1) {
+                document.getElementById("scoreListPH").remove();
+            }
+
+            var nameList = document.createElement("ol")
+            var scoreList = document.createElement("ul");
+            nameList.classList.add("name-list");
+            scoreList.classList.add("score-list");
+            document.querySelector(".score-lists").append(nameList);
+            document.querySelector(".score-lists").append(scoreList);
+
+            for (let i = 0; i < scoreArr.length; i++) {
+                var nameItem = document.createElement("li");
+                (scoreArr[i].name == "") ? nameItem.innerText = "Anonymous" : nameItem.innerText = scoreArr[i].name;
+                nameList.append(nameItem);
+
+                var scoreItem = document.createElement("li");
+                scoreItem.innerText = scoreArr[i].score;
+                scoreList.append(scoreItem);
+
+                if (i == 9) {
+                    break;
+                }
             }
         }
 
-        scoreBoard.append(scoreList);
-        scoreBoard.append(closeBtn);
-        // TO DO --> SOLVE PROBLEM APPEND EVERY TIME YOU CLICK
-
-        fgGameOver.style.display = "none";
-        scoreBoard.style.display = "block";
 
         closeBtn.addEventListener("click", function (e) {
             e.preventDefault();
-            fgGameOver.style.display = "block";
-            scoreBoard.style.display = "none";
+            if (scoreArr != null) {
+                nameList.remove();
+                scoreList.remove();
+            }
 
-        })
-
-
+            // scoreBoard.style.display = "none";
+            scoreBoard.style.transform = "translateY(100%)"
+        });
     }
-
-    // 
-
-    // function storeScore() {
-    //     scoreArr = JSON.parse(localStorage.getItem("score"));
-    //     if (scoreArr == null) {
-    //         scoreArr = [];
-    //         scoreArr.push(score);
-    //     } else {
-    //         scoreArr.push(score);
-    //     }
-    //     localStorage.setItem("score", JSON.stringify(scoreArr));
-    // }
-
 
 }
 

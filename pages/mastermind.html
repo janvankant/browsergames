@@ -27,18 +27,34 @@
                         style="background-color: blue;">B</span> <span style="background-color: green;">G</span> <span
                         style="background-color: purple;">P</span>
                 </p> -->
-                <div class="btn-container">
-                    <button class="input-btn red" value="r"></button>
-                    <button class="input-btn yellow" value="y"></button>
-                    <button class="input-btn blue" value="b"></button>
-                    <button class="input-btn green" value="g"></button>
-                    <button class="input-btn purple" value="p"></button>
+                <div class="btn-wrapper">
+                    <div class="btn-container">
+                        <button class="input-btn red" value="r"></button>
+                        <button class="input-btn yellow" value="y"></button>
+                        <button class="input-btn blue" value="b"></button>
+                        <button class="input-btn green" value="g"></button>
+                        <button class="input-btn purple" value="p"></button>
+                    </div>
+                    <i class="fas fa-undo-alt" value="Backspace"></i>
                 </div>
             </div>
-
         </div>
+
         <div class="game-area">
             <div class="text-area"><i class="fas fa-check"></i></div>
+        </div>
+
+        <div class="bg-game-over">
+            <div class="fg-game-over">
+                <h1 id="h1">Placeholder text</h1>
+                <p id="p">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum, reprehenderit!</p>
+                <div id="solution-wrapper"></div>
+                <div class="menu-btn-container">
+                    <button class="restart-btn" id="continueBtn">Continue</button>
+                    <button class="restart-btn" id="restartBtn">Start over</button>
+                    <button class="restart-btn" id="backHomeBtn">Exit to menu</button>
+                </div>
+            </div>
         </div>
     </div>
 

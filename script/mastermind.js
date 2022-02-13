@@ -5,26 +5,19 @@ var root = document.getElementById("root");
 var gameArea = document.querySelector(".game-area")
 var gameWrapper = document.createElement("div");
 var game = document.createElement("div");
-var bgGameOver = document.createElement("div");
-var fgGameOver = document.createElement("div");
-var restartBtn = document.createElement("button");
-var continueBtn = document.createElement("button");
-var backHomeBtn = document.createElement("button");
+var bgGameOver = document.querySelector(".bg-game-over");
+var h1 = document.getElementById("h1");
+var p = document.getElementById("p");
+var restartBtn = document.getElementById("restartBtn");
+var continueBtn = document.getElementById("continueBtn");
+var backHomeBtn = document.getElementById("backHomeBtn");
 var menuBtn = document.getElementById("menu-btn");
 var inputBtnArr = document.querySelectorAll(".input-btn");
 
 gameArea.append(gameWrapper);
 gameWrapper.append(game);
 
-root.append(bgGameOver);
-bgGameOver.append(fgGameOver);
-
 game.classList.add("game");
-bgGameOver.classList.add("bg-game-over");
-fgGameOver.classList.add("fg-game-over");
-restartBtn.classList.add("restart-btn");
-continueBtn.classList.add("restart-btn");
-backHomeBtn.classList.add("restart-btn");
 
 var colours = ['p', 'b', 'r', 'y', 'g'];
 var solution = [];
@@ -32,6 +25,11 @@ var arrInput = [];
 var attempt = 0;
 var correct = 0;
 
+continueBtn.addEventListener("click", () => {
+    document.querySelector(".header").classList.remove("blur");
+    gameArea.classList.remove("blur");
+    bgGameOver.style.transform = "translateY(100%)";
+});
 
 // generate random solution
 for (var i = 0; i < 5; i++) {
@@ -42,15 +40,11 @@ for (var i = 0; i < 5; i++) {
 }
 console.log(solution);
 
-var finSol = solution.join("");
-var inGame = true;
+var gameOverTextH1 = `Game Over...`;
+var gameOverTextP = `You were not able to solve the code... The answer was:`;
+var gameWonTextH1 = `You won!`;
+var gameWonTextP = `Congratulations, you were able to crack the code!`;
 
-const gameOverText = `<h1>Game Over...</h1><p>You were not able to solve the code... <br> The answer was: ${finSol}</p>`;
-const gameWonText = `<h1>You won!</h1><p>Congratulations, you were able to crack the code! <br>${finSol}</p>`;
-
-restartBtn.innerHTML = "Start over";
-continueBtn.innerHTML = "Continue";
-backHomeBtn.innerHTML = "Back to menu";
 
 // <--- PLAY GAME ---> //
 window.addEventListener("keydown", function (keyDown) {
@@ -59,6 +53,10 @@ window.addEventListener("keydown", function (keyDown) {
 });
 menuBtn.addEventListener("click", pauseGame);
 
+var undoBtn = document.querySelector(".fa-undo-alt");
+undoBtn.addEventListener("click", () => {
+    toScreen(undoBtn.getAttribute("value"));
+});
 
 inputBtnArr.forEach(btn => {
     let el = btn.value;
@@ -68,33 +66,28 @@ inputBtnArr.forEach(btn => {
     });
 });
 
-
 function toScreen(input) {
+    console.log(input);
     if (input == "g") {
         var green = document.createElement("div");
         green.classList.add("green");
         game.append(green);
-        // var inputObj = { "letter": input, "color": green };
     } else if (input == "r") {
         var red = document.createElement("div");
         red.classList.add("red");
         game.append(red);
-        // var inputObj = { "letter": input, "color": red };
     } else if (input == "b") {
         var blue = document.createElement("div");
         blue.classList.add("blue");
         game.append(blue);
-        // var inputObj = { "letter": input, "color": blue };
     } else if (input == "y") {
         var yellow = document.createElement("div");
         yellow.classList.add("yellow");
         game.append(yellow);
-        // var inputObj = { "letter": input, "color": yellow };
     } else if (input == "p") {
         var purple = document.createElement("div");
         purple.classList.add("purple");
         game.append(purple);
-        // var inputObj = { "letter": input, "color": purple };
     } else if (input == "Backspace") {
         game.lastChild.remove();
     }
@@ -104,7 +97,6 @@ function toScreen(input) {
     } else if (input == "Backspace") {
         arrInput.pop();
     }
-
 
     if (arrInput.length == 5) {
         for (var i = 0; i < arrInput.length; ++i) {
@@ -121,7 +113,6 @@ function toScreen(input) {
         (correct == 0) ? text.style.color = "red" : text.style.color = `rgb(0,${250 / ((correct + 1) / 2)},0)`;
 
         if (correct == 5) {
-            inGame = false;
             gameWon();
         }
 
@@ -136,38 +127,56 @@ function toScreen(input) {
         game.classList.add("game");
 
         if (attempt > 6) {
-            inGame = false;
             gameOver();
         }
     }
 }
 
 function gameOver() {
-    fgGameOver.innerHTML = gameOverText;
     menu();
+    h1.innerText = gameOverTextH1;
+    p.innerText = gameOverTextP;
+    displayFinSol(solution);
+    continueBtn.style.display = "none";
 }
 
 function gameWon() {
-    fgGameOver.innerHTML = gameWonText;
     menu();
+    h1.innerText = gameWonTextH1;
+    p.innerText = gameWonTextP;
+    displayFinSol(solution);
+    continueBtn.style.display = "none";
 }
 
 function pauseGame() {
-    fgGameOver.innerHTML = `<h1>Game paused</h1><p>Would you like to keep playing or go back to the menu?</p>`;
     menu();
-    fgGameOver.append(continueBtn);
-    continueBtn.addEventListener("click", function () {
-        bgGameOver.style.display = "none";
-        restartBtn.remove();
-        continueBtn.remove();
-        backHomeBtn.remove();
-    });
+    h1.innerText = "Game paused";
+    p.innerText = "Would you like to keep playing or go back to the menu?";
+
 }
 
 function menu() {
-    bgGameOver.style.display = "block";
-    fgGameOver.append(restartBtn);
-    fgGameOver.append(backHomeBtn);
+    bgGameOver.style.transform = "translateY(0%)";
+    document.querySelector(".header").classList.add("blur");
+    gameArea.classList.add("blur");
     restartBtn.addEventListener("click", () => location.reload(true));
     backHomeBtn.addEventListener("click", () => location.href = "../index.html");
+}
+
+function displayFinSol(sol) {
+    sol.forEach(el => {
+        var sp = document.createElement("span");
+        if (el == "g") {
+            sp.classList.add("green");
+        } else if (el == "r") {
+            sp.classList.add("red");
+        } else if (el == "b") {
+            sp.classList.add("blue");
+        } else if (el == "p") {
+            sp.classList.add("purple");
+        } else if (el == "y") {
+            sp.classList.add("yellow");
+        }
+        document.getElementById("solution-wrapper").append(sp);
+    });
 }
