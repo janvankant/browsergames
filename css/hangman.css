@@ -191,6 +191,7 @@
 .input-container {
     display: flex;
     margin-block: 1rem;
+    overflow: hidden;
 }
 
 #input, #confirmBtn {
@@ -202,7 +203,7 @@
 }
 
 #confirmBtn {
-    padding-inline: 1rem;
+    padding-inline: .5rem;
     transition: font-weight .35s ease-in-out,
     color .35s ease-in-out,
     background-color .35s ease-in-out;
@@ -210,6 +211,10 @@
 
 .confirmLarge {
     display: none;
+}
+
+.confirmSmall {
+    padding-inline: 0;
 }
 
 .fa-check {
